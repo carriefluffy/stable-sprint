@@ -12,7 +12,7 @@ export const WalletStatus: React.FC = () => {
         <span>Celo</span>
       </div>
       <div className="hw-chip">
-        Gas ~$0.001
+        Fee ~$0.001
       </div>
       <div className="hw-chip">
         On-chain

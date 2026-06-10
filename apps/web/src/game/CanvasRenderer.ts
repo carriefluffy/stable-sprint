@@ -56,7 +56,7 @@ export class CanvasRenderer {
       this.ctx.stroke();
     }
 
-    // 3. Draw cUSD Coins
+    // 3. Draw USDm Coins
     for (const coin of scoreObj.coins) {
       if (coin.collected) continue;
       
@@ -70,7 +70,7 @@ export class CanvasRenderer {
       this.ctx.fill();
 
       // Coin body
-      this.ctx.fillStyle = '#56DF7C'; // cUSD Green
+      this.ctx.fillStyle = '#56DF7C'; // USDm Green
       this.ctx.beginPath();
       this.ctx.arc(cx, cy, 6, 0, Math.PI * 2);
       this.ctx.fill();
