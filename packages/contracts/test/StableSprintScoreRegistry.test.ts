@@ -2,12 +2,12 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
-describe("GasGobblerScoreRegistry", function () {
+describe("StableSprintScoreRegistry", function () {
   async function deployFixture() {
     const [owner, signer, player, otherAccount] = await ethers.getSigners();
 
-    const GasGobblerScoreRegistry = await ethers.getContractFactory("GasGobblerScoreRegistry");
-    const registry = await GasGobblerScoreRegistry.deploy();
+    const StableSprintScoreRegistry = await ethers.getContractFactory("StableSprintScoreRegistry");
+    const registry = (await StableSprintScoreRegistry.deploy()) as any;
 
     await registry.setSigner(signer.address);
 
@@ -37,7 +37,7 @@ describe("GasGobblerScoreRegistry", function () {
       deadline: number
     ) {
       const domain = {
-        name: "GasGobblerScoreRegistry",
+        name: "StableSprintScoreRegistry",
         version: "1",
         chainId: (await ethers.provider.getNetwork()).chainId,
         verifyingContract: await registry.getAddress(),

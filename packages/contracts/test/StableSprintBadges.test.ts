@@ -1,13 +1,14 @@
+// @ts-ignore
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
-describe("GasGobblerBadges", function () {
+describe("StableSprintBadges", function () {
   async function deployFixture() {
     const [owner, player, otherAccount] = await ethers.getSigners();
 
-    const GasGobblerBadges = await ethers.getContractFactory("GasGobblerBadges");
-    const badges = await GasGobblerBadges.deploy();
+    const StableSprintBadges = await ethers.getContractFactory("StableSprintBadges");
+    const badges = (await StableSprintBadges.deploy()) as any;
 
     return { badges, owner, player, otherAccount };
   }
@@ -23,7 +24,7 @@ describe("GasGobblerBadges", function () {
       expect(await badges.totalBadgeTypes()).to.equal(3);
 
       const badge1 = await badges.getBadge(1);
-      expect(badge1.name).to.equal("First Gobble");
+      expect(badge1.name).to.equal("First Sprint");
       
       const badge2 = await badges.getBadge(2);
       expect(badge2.name).to.equal("Score 500");

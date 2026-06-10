@@ -38,7 +38,7 @@ export const Play: React.FC = () => {
           <div className="cartridge-strip" />
           <div className="p-6 sm:p-10 text-center">
             <h2 className="pixel-subtitle mb-4">
-              {lastScore !== null ? 'Great Run!' : 'Ready to Gobble?'}
+              {lastScore !== null ? 'Great Run!' : 'Ready to Sprint?'}
             </h2>
             
             {lastScore !== null && (

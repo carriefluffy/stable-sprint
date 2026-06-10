@@ -112,7 +112,7 @@ app.post('/api/scores/validate', async (c) => {
     const chainId = parseInt(c.env.VITE_CHAIN_ID || '42220');
     
     const domain = {
-      name: "GasGobblerScoreRegistry",
+      name: "StableSprintScoreRegistry",
       version: "1",
       chainId,
       verifyingContract: c.env.VITE_SCORE_REGISTRY_ADDRESS as `0x${string}`,
@@ -182,7 +182,10 @@ app.get('/api/leaderboard', async (c) => {
       transport: http()
     });
 
-    const address = '0x16Bbc09bFCCaae7D4C2EcD79C5d72AeA886D2bd0' as const;
+    const address = c.env.VITE_SCORE_REGISTRY_ADDRESS as `0x${string}`;
+    if (!address) {
+      return c.json({ error: "Score registry address not configured" }, 500);
+    }
     const abi = [
       parseAbiItem('function submissionCount() view returns (uint256)'),
       parseAbiItem('function submissions(uint256) view returns (address player, uint256 score, bytes32 sessionId, uint256 timestamp)')

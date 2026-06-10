@@ -102,9 +102,9 @@ export const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           
-          {/* Game 1: Gas Gobbler — LIVE, yellow frame */}
+          {/* Game 1: Stable Sprint — LIVE, orange frame */}
           <div className="cartridge">
-            <div className="cartridge-strip" />
+            <div className="cartridge-strip" style={{ background: 'repeating-linear-gradient(90deg, #FF9A51 0 12px, #1a1024 12px 18px)' }} />
             <div className="p-5">
               <div className="flex justify-between items-center mb-1">
                 <span className="font-mono text-[10px] text-[#655947] tracking-widest">GAME-01</span>
@@ -113,16 +113,16 @@ export const Home: React.FC = () => {
                   <span className="font-mono text-[10px] text-success uppercase tracking-widest font-bold">Live</span>
                 </div>
               </div>
-              <h3 className="font-arcade text-sm text-cream mb-2">Gas Gobbler</h3>
-              <GasGobblerPreview />
+              <h3 className="font-arcade text-sm text-cream mb-2">Stable Sprint</h3>
+              <StableSprintPreview />
               <p className="text-sand text-xs mb-3 font-mono">
-                Eat gas orbs. Dodge failed transactions. Survive the mempool.
+                Collect stablecoins, jump/slide to dodge volatile market traps.
               </p>
               <div className="text-[10px] font-mono text-[#655947] mb-4 tracking-wider">
-                ⏱ 30 sec rounds &nbsp;·&nbsp; ⛓ On-chain score save
+                ⏱ Survival Runner &nbsp;·&nbsp; 📱 MiniPay-ready &nbsp;·&nbsp; ⛓ On-chain score
               </div>
               <Link to="/play" className="arcade-btn w-full text-xs py-3">
-                Play Gas Gobbler
+                Play Stable Sprint
               </Link>
             </div>
           </div>
@@ -152,7 +152,7 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Game 3: Stable Sprint — LOCKED */}
+          {/* Game 3: Mento Invaders — LOCKED */}
           <div className="cartridge cartridge-locked">
             <div className="cartridge-strip" style={{ opacity: 0.3 }} />
             <div className="p-5">
@@ -163,13 +163,13 @@ export const Home: React.FC = () => {
                   <span className="font-mono text-[10px] text-[#655947] uppercase tracking-widest">Coming Soon</span>
                 </div>
               </div>
-              <h3 className="font-arcade text-sm text-sand mb-2">Stable Sprint</h3>
-              <StableSprintPreview />
+              <h3 className="font-arcade text-sm text-sand mb-2">Mento Invaders</h3>
+              <MentoInvadersPreview />
               <p className="text-[#655947] text-xs mb-3 font-mono">
-                Collect cUSD, avoid volatility traps.
+                Defend the stablecoin pool from incoming anomalies.
               </p>
               <div className="text-[10px] font-mono text-[#4a3f34] mb-4 tracking-wider">
-                ⏱ 45 sec rounds &nbsp;·&nbsp; 📱 MiniPay-ready
+                ⏱ Survival Mode &nbsp;·&nbsp; 👾 Classic Shooter
               </div>
               <button disabled className="arcade-btn arcade-btn-locked w-full text-xs py-3">
                 Locked
@@ -177,27 +177,27 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Game 4: Mento Invaders — BETA, blue frame */}
-          <div className="cartridge cartridge-beta">
-            <div className="cartridge-strip" style={{ background: 'repeating-linear-gradient(90deg, #7CC0FF 0 12px, #1a1024 12px 18px)' }} />
+          {/* Game 4: Gas Gobbler — ARCHIVE/LOCKED */}
+          <div className="cartridge cartridge-locked">
+            <div className="cartridge-strip" style={{ opacity: 0.3 }} />
             <div className="p-5">
               <div className="flex justify-between items-center mb-1">
                 <span className="font-mono text-[10px] text-[#655947] tracking-widest">GAME-04</span>
                 <div className="flex items-center gap-2">
-                  <span className="status-light status-light-beta" />
-                  <span className="font-mono text-[10px] text-accent uppercase tracking-widest font-bold">Beta</span>
+                  <span className="status-light status-light-soon" />
+                  <span className="font-mono text-[10px] text-[#655947] uppercase tracking-widest">Archive</span>
                 </div>
               </div>
-              <h3 className="font-arcade text-sm text-cream mb-2">Mento Invaders</h3>
-              <MentoInvadersPreview />
-              <p className="text-sand text-xs mb-3 font-mono">
-                Defend the stablecoin pool from incoming anomalies.
+              <h3 className="font-arcade text-sm text-sand mb-2">Gas Gobbler</h3>
+              <GasGobblerPreview />
+              <p className="text-[#655947] text-xs mb-3 font-mono">
+                Eat gas orbs. Dodge failed transactions. Survive the mempool.
               </p>
-              <div className="text-[10px] font-mono text-[#655947] mb-4 tracking-wider">
-                ⏱ Survival Mode &nbsp;·&nbsp; 👾 Classic Shooter
+              <div className="text-[10px] font-mono text-[#4a3f34] mb-4 tracking-wider">
+                ⏱ 30 sec rounds &nbsp;·&nbsp; 🏆 Fleet game
               </div>
-              <button disabled className="arcade-btn arcade-btn-accent w-full text-xs py-3">
-                Access Beta Soon
+              <button disabled className="arcade-btn arcade-btn-locked w-full text-xs py-3">
+                Locked
               </button>
             </div>
           </div>
@@ -219,11 +219,11 @@ export const Home: React.FC = () => {
               <ul className="space-y-3 font-mono text-xs">
                 <li className="flex justify-between">
                   <span className="text-[#655947]">Frontend</span>
-                  <a href="https://github.com/cryptoflops/celo-atari-games" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GitHub</a>
+                  <a href="https://github.com/carriefluffy/stable-sprint" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GitHub</a>
                 </li>
                 <li className="flex justify-between">
                   <span className="text-[#655947]">Contracts</span>
-                  <a href="https://celoscan.io/address/0x16Bbc09bFCCaae7D4C2EcD79C5d72AeA886D2bd0" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">CeloScan</a>
+                  <a href={`https://celoscan.io/address/${import.meta.env.VITE_SCORE_REGISTRY_ADDRESS}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">CeloScan</a>
                 </li>
                 <li className="flex justify-between">
                   <span className="text-[#655947]">Network</span>

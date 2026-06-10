@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract GasGobblerBadges is Ownable {
+contract StableSprintBadges is Ownable {
     struct BadgeMetadata {
         string name;
         string description;
@@ -22,7 +22,7 @@ contract GasGobblerBadges is Ownable {
 
     constructor() Ownable(msg.sender) {
         // Initialize default badges
-        _createBadge("First Gobble", "Completed your first game of Gas Gobbler", "ipfs://first-gobble");
+        _createBadge("First Sprint", "Completed your first game of Stable Sprint", "ipfs://first-sprint");
         _createBadge("Score 500", "Achieved a score of 500 or more", "ipfs://score-500");
         _createBadge("Celo Scholar", "Completed the Celo educational onboarding", "ipfs://celo-scholar");
     }

@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract GasGobblerScoreRegistry is EIP712, Ownable, ReentrancyGuard {
+contract StableSprintScoreRegistry is EIP712, Ownable, ReentrancyGuard {
     using ECDSA for bytes32;
 
     address public signerAddress;
@@ -41,7 +41,7 @@ contract GasGobblerScoreRegistry is EIP712, Ownable, ReentrancyGuard {
         "ScoreAttestation(bytes32 sessionId,address player,uint256 score,uint256 nonce,uint256 deadline)"
     );
 
-    constructor() EIP712("GasGobblerScoreRegistry", "1") Ownable(msg.sender) {}
+    constructor() EIP712("StableSprintScoreRegistry", "1") Ownable(msg.sender) {}
 
     function setSigner(address _signerAddress) external onlyOwner {
         signerAddress = _signerAddress;

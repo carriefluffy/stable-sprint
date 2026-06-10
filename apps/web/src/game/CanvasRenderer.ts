@@ -1,102 +1,168 @@
-import { Maze, TileType, TILE_SIZE, MAZE_COLS, MAZE_ROWS, Player, Ghost, GhostState } from '@celo-arcade/game-engine';
+import { Player } from '@celo-arcade/game-engine';
+import { Score } from '@celo-arcade/game-engine';
 
 export class CanvasRenderer {
   private ctx: CanvasRenderingContext2D;
-  private width: number;
-  private height: number;
+  private width = 448;
+  private height = 496;
 
   constructor(canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
-    this.width = MAZE_COLS * TILE_SIZE;
-    this.height = MAZE_ROWS * TILE_SIZE;
-    
-    // Set internal resolution
     canvas.width = this.width;
     canvas.height = this.height;
-    
-    // Scale for crisp pixel art
     this.ctx.imageSmoothingEnabled = false;
   }
 
-  public draw(maze: Maze, player: Player, ghosts: Ghost[], score: number, isGameOver: boolean) {
-    // Clear background
-    this.ctx.fillStyle = '#0F0F0F';
-    this.ctx.fillRect(0, 0, this.width, this.height);
+  public draw(player: Player, scoreObj: Score, isGameOver: boolean) {
+    // 1. Draw sky gradient
+    const skyGrad = this.ctx.createLinearGradient(0, 0, 0, 400);
+    skyGrad.addColorStop(0, '#120b1a');
+    skyGrad.addColorStop(1, '#241432');
+    this.ctx.fillStyle = skyGrad;
+    this.ctx.fillRect(0, 0, this.width, 400);
 
-    // Draw maze
-    for (let y = 0; y < MAZE_ROWS; y++) {
-      for (let x = 0; x < MAZE_COLS; x++) {
-        const tile = maze.getTile(x, y);
-        const px = x * TILE_SIZE;
-        const py = y * TILE_SIZE;
-
-        if (tile === TileType.WALL) {
-          this.ctx.fillStyle = '#004E89';
-          this.ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-          
-          // Inner detail
-          this.ctx.strokeStyle = '#2274A5';
-          this.ctx.lineWidth = 2;
-          this.ctx.strokeRect(px + 2, py + 2, TILE_SIZE - 4, TILE_SIZE - 4);
-        } else if (tile === TileType.PELLET) {
-          this.ctx.fillStyle = '#FFB140';
-          this.ctx.beginPath();
-          this.ctx.arc(px + TILE_SIZE / 2, py + TILE_SIZE / 2, 4, 0, Math.PI * 2);
-          this.ctx.fill();
-        } else if (tile === TileType.POWER_PELLET) {
-          this.ctx.fillStyle = '#FFB140';
-          this.ctx.beginPath();
-          // Pulsing effect based on time
-          const radius = 6 + Math.sin(Date.now() / 150) * 2;
-          this.ctx.arc(px + TILE_SIZE / 2, py + TILE_SIZE / 2, radius, 0, Math.PI * 2);
-          this.ctx.fill();
-        } else if (tile === TileType.GAS_SHIELD) {
-          this.ctx.fillStyle = '#56DF7C'; // Celo green
-          this.ctx.beginPath();
-          this.ctx.arc(px + TILE_SIZE / 2, py + TILE_SIZE / 2, 8, 0, Math.PI * 2);
-          this.ctx.fill();
-        } else if (tile === TileType.FLASH_LOAN) {
-          this.ctx.fillStyle = '#FCFF52'; // Prosperity Yellow
-          this.ctx.beginPath();
-          this.ctx.moveTo(px + TILE_SIZE / 2, py + 4);
-          this.ctx.lineTo(px + TILE_SIZE - 4, py + TILE_SIZE - 4);
-          this.ctx.lineTo(px + 4, py + TILE_SIZE - 4);
-          this.ctx.closePath();
-          this.ctx.fill();
-        } else if (tile === TileType.RUG_PULL) {
-          this.ctx.fillStyle = '#F72585'; // Pink/Red
-          this.ctx.fillRect(px + 6, py + 6, TILE_SIZE - 12, TILE_SIZE - 12);
-        }
-      }
+    // Draw scrolling grid lines on the wall for depth
+    this.ctx.strokeStyle = 'rgba(124, 192, 255, 0.04)';
+    this.ctx.lineWidth = 1;
+    const gridSpacing = 40;
+    const scrollOffset = (Date.now() / 8) % gridSpacing;
+    for (let x = -scrollOffset; x < this.width; x += gridSpacing) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, 0);
+      this.ctx.lineTo(x, 400);
+      this.ctx.stroke();
     }
 
-    // Draw Player
-    this.ctx.fillStyle = '#FF6B35';
+    // 2. Draw ground (y > 400)
+    const groundGrad = this.ctx.createLinearGradient(0, 400, 0, this.height);
+    groundGrad.addColorStop(0, '#102511'); // deep forest
+    groundGrad.addColorStop(1, '#081009');
+    this.ctx.fillStyle = groundGrad;
+    this.ctx.fillRect(0, 400, this.width, this.height - 400);
+
+    // Draw scrolling perspective lines on the ground
+    this.ctx.strokeStyle = '#476520';
+    this.ctx.lineWidth = 2;
     this.ctx.beginPath();
-    this.ctx.arc(player.x, player.y, TILE_SIZE * 0.4, 0, Math.PI * 2);
-    this.ctx.fill();
+    this.ctx.moveTo(0, 400);
+    this.ctx.lineTo(this.width, 400);
+    this.ctx.stroke();
 
-    // Draw Ghosts
-    for (const ghost of ghosts) {
-      if (!ghost.isEaten) {
-        let color = '#F72585'; // Default Pink/Red
-        if (ghost.state === GhostState.FRIGHTENED) color = '#00A676';
-        if (ghost.state === GhostState.FROZEN) color = '#56DF7C';
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(ghost.x - TILE_SIZE * 0.4, ghost.y - TILE_SIZE * 0.4, TILE_SIZE * 0.8, TILE_SIZE * 0.8);
-      }
+    const roadScroll = (Date.now() / 5) % 30;
+    for (let x = -roadScroll; x < this.width; x += 30) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(x, 400);
+      this.ctx.lineTo(x - 20, this.height);
+      this.ctx.stroke();
     }
 
-    // Draw UI overlay if Game Over
-    if (isGameOver) {
-      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.fillRect(0, 0, this.width, this.height);
+    // 3. Draw cUSD Coins
+    for (const coin of scoreObj.coins) {
+      if (coin.collected) continue;
       
-      this.ctx.fillStyle = '#FFFFFF';
+      const cx = coin.x;
+      const cy = coin.y + coin.height / 2;
+      
+      // Outer glow
+      this.ctx.fillStyle = 'rgba(86, 223, 124, 0.4)';
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 10 + Math.sin(Date.now() / 100) * 2, 0, Math.PI * 2);
+      this.ctx.fill();
+
+      // Coin body
+      this.ctx.fillStyle = '#56DF7C'; // cUSD Green
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+      this.ctx.fill();
+
+      // Currency sign $ inside coin
+      this.ctx.fillStyle = '#120b1a';
+      this.ctx.font = 'bold 8px monospace';
+      this.ctx.textAlign = 'center';
+      this.ctx.fillText('$', cx, cy + 3);
+    }
+
+    // 4. Draw Obstacles (Red Candlesticks)
+    for (const obs of scoreObj.obstacles) {
+      const ox = obs.x - obs.width / 2;
+      const oy = obs.y;
+      
+      this.ctx.fillStyle = '#F72585'; // Volatile red
+      this.ctx.fillRect(ox, oy, obs.width, obs.height);
+      
+      // Draw wick lines for financial candlestick aesthetic
+      this.ctx.strokeStyle = '#F72585';
+      this.ctx.lineWidth = 2;
+      this.ctx.beginPath();
+      if (obs.type === 'low') {
+        this.ctx.moveTo(obs.x, oy);
+        this.ctx.lineTo(obs.x, oy - 8);
+      } else {
+        this.ctx.moveTo(obs.x, oy + obs.height);
+        this.ctx.lineTo(obs.x, oy + obs.height + 8);
+      }
+      this.ctx.stroke();
+    }
+
+    // 5. Draw Runner (Player)
+    const px = player.x - player.width / 2;
+    const py = player.y - player.height;
+    
+    // Player body
+    this.ctx.fillStyle = '#FCFF52'; // Prosperity Yellow
+    this.ctx.fillRect(px, py, player.width, player.height);
+
+    // Legs animation (running effect)
+    this.ctx.fillStyle = '#8a8c1a';
+    if (!player.isJumping && !player.isSliding) {
+      const legPhase = Math.floor(Date.now() / 60) % 2;
+      if (legPhase === 0) {
+        this.ctx.fillRect(px + 3, player.y, 4, 3);
+        this.ctx.fillRect(px + player.width - 7, player.y - 3, 4, 3);
+      } else {
+        this.ctx.fillRect(px + 3, player.y - 3, 4, 3);
+        this.ctx.fillRect(px + player.width - 7, player.y, 4, 3);
+      }
+    } else if (player.isJumping) {
+      // Jumping tucked legs
+      this.ctx.fillRect(px + 4, player.y - 3, 4, 3);
+      this.ctx.fillRect(px + player.width - 8, player.y - 3, 4, 3);
+    } else if (player.isSliding) {
+      // Sliding layout
+      this.ctx.fillRect(px - 4, player.y - 4, 4, 4);
+    }
+
+    // Draw eye/visor facing right
+    this.ctx.fillStyle = '#120b1a';
+    if (player.isSliding) {
+      this.ctx.fillRect(player.x + 4, py + 4, 4, 3);
+    } else {
+      this.ctx.fillRect(player.x + 4, py + 6, 4, 3);
+    }
+
+    // 6. Draw HUD & stats overlay
+    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    this.ctx.font = '9px monospace';
+    this.ctx.textAlign = 'right';
+    this.ctx.fillText(`SPEED ${scoreObj.scrollSpeed.toFixed(1)}px/f`, this.width - 15, this.height - 15);
+
+    // 7. Draw UI overlay if Game Over
+    if (isGameOver) {
+      this.ctx.fillStyle = 'rgba(10, 6, 20, 0.85)';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+      this.ctx.fillStyle = '#FCF6F1';
       this.ctx.font = 'bold 24px monospace';
       this.ctx.textAlign = 'center';
-      this.ctx.fillText('GAME OVER', this.width / 2, this.height / 2 - 20);
-      this.ctx.fillText(`SCORE: ${score}`, this.width / 2, this.height / 2 + 20);
+      this.ctx.fillText('LIQUIDATED', this.width / 2, this.height / 2 - 30);
+      
+      this.ctx.fillStyle = '#FCFF52';
+      this.ctx.font = 'bold 16px monospace';
+      this.ctx.fillText(`DISTANCE: ${scoreObj.current}`, this.width / 2, this.height / 2 + 10);
+      
+      this.ctx.fillStyle = '#655947';
+      this.ctx.font = '10px monospace';
+      this.ctx.fillText('PRESS START TO RETRY', this.width / 2, this.height / 2 + 50);
     }
   }
 }

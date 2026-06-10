@@ -1,4 +1,4 @@
-import { ethers } from "hardhat";
+import { ethers, artifacts, network } from "hardhat";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -7,18 +7,18 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
 
   // Deploy ScoreRegistry
-  const GasGobblerScoreRegistry = await ethers.getContractFactory("GasGobblerScoreRegistry");
-  const registry = await GasGobblerScoreRegistry.deploy();
+  const StableSprintScoreRegistry = await ethers.getContractFactory("StableSprintScoreRegistry");
+  const registry = (await StableSprintScoreRegistry.deploy()) as any;
   await registry.waitForDeployment();
   const registryAddress = await registry.getAddress();
-  console.log("GasGobblerScoreRegistry deployed to:", registryAddress);
+  console.log("StableSprintScoreRegistry deployed to:", registryAddress);
 
   // Deploy Badges
-  const GasGobblerBadges = await ethers.getContractFactory("GasGobblerBadges");
-  const badges = await GasGobblerBadges.deploy();
+  const StableSprintBadges = await ethers.getContractFactory("StableSprintBadges");
+  const badges = (await StableSprintBadges.deploy()) as any;
   await badges.waitForDeployment();
   const badgesAddress = await badges.getAddress();
-  console.log("GasGobblerBadges deployed to:", badgesAddress);
+  console.log("StableSprintBadges deployed to:", badgesAddress);
 
   // Set Signer (to deployer by default, update later if needed)
   await registry.setSigner(deployer.address);
@@ -52,15 +52,15 @@ async function main() {
     fs.mkdirSync(abiDir, { recursive: true });
   }
 
-  const registryArtifact = await artifacts.readArtifact("GasGobblerScoreRegistry");
+  const registryArtifact = await artifacts.readArtifact("StableSprintScoreRegistry");
   fs.writeFileSync(
-    path.join(abiDir, "GasGobblerScoreRegistry.json"),
+    path.join(abiDir, "StableSprintScoreRegistry.json"),
     JSON.stringify(registryArtifact.abi, null, 2)
   );
 
-  const badgesArtifact = await artifacts.readArtifact("GasGobblerBadges");
+  const badgesArtifact = await artifacts.readArtifact("StableSprintBadges");
   fs.writeFileSync(
-    path.join(abiDir, "GasGobblerBadges.json"),
+    path.join(abiDir, "StableSprintBadges.json"),
     JSON.stringify(badgesArtifact.abi, null, 2)
   );
   console.log("Exported ABIs to apps/web/src/abi");
