@@ -1,11 +1,11 @@
-name = "celo-atari-games-api"
+name = "stable-sprint-api"
 main = "src/index.ts"
 compatibility_date = "2024-05-14"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 VITE_CHAIN_ID = "42220"
-VITE_SCORE_REGISTRY_ADDRESS = "0x16Dc6c7152cD19eCeb20948Ea7C2bdED3F84eCBC"
+VITE_SCORE_REGISTRY_ADDRESS = "0xc4c59f5D3a9dedE1203fFfe4e31841d88F61BDB5"
 
 [[kv_namespaces]]
 binding = "SESSIONS"
