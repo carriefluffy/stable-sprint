@@ -80,7 +80,7 @@ export const Play: React.FC = () => {
   } = useGame();
 
   if (!gameId || !GAME_INFO[gameId]) {
-    return <Navigate to="/play/gas-gobbler" replace />;
+    return <Navigate to="/play/stable-sprint" replace />;
   }
 
   const info = GAME_INFO[gameId];
@@ -129,7 +129,7 @@ export const Play: React.FC = () => {
           {/* Instructions Box */}
           <div className="relative pt-4">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-background px-4 z-10">
-              <span className="font-arcade text-[7px] text-white/30 tracking-[0.3em]">HOW TO PLAY</span>
+              <span className="font-mono text-[10px] font-bold text-white/30 tracking-[0.3em] uppercase">HOW TO PLAY</span>
             </div>
             <div className="glass-panel p-5 pt-7 border-dashed border-2 border-white/10">
               <p className="tech-label text-white/95 leading-relaxed text-center mb-5 normal-case font-medium">
@@ -139,11 +139,11 @@ export const Play: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col items-center p-2.5 glass-panel bg-white/5 border-white/5">
                   <span className="tech-label opacity-40 text-[9px] mb-1">Mission</span>
-                  <span className="font-arcade text-[9px] text-white/90">{info.time}</span>
+                  <span className="font-mono text-xs font-bold text-white/90">{info.time}</span>
                 </div>
                 <div className="flex flex-col items-center p-2.5 glass-panel bg-white/5 border-white/5">
                   <span className="tech-label opacity-40 text-[9px] mb-1">Score Type</span>
-                  <span className="font-arcade text-[9px] text-success text-glow-success">{info.type}</span>
+                  <span className="font-mono text-xs font-bold text-success text-glow-success">{info.type}</span>
                 </div>
               </div>
             </div>
@@ -168,8 +168,9 @@ export const Play: React.FC = () => {
                     {isClaiming ? 'SAVING TO CELO...' : !isConnected ? 'CONNECT & SAVE' : isWrongNetwork ? 'SWITCH NETWORK' : 'SAVE SCORE ON-CHAIN'}
                   </button>
                   {claimError && (
-                    <div className="mt-3 p-3 border border-danger/30 bg-danger/10 text-danger rounded-lg tech-label text-[10px] text-center leading-normal animate-pulse text-glow-danger">
-                      ERROR: {claimError}
+                    <div className="mt-3 p-3 border border-danger/30 bg-danger/10 text-danger rounded-lg tech-label text-xs text-center leading-normal text-glow-danger">
+                      <p className="mb-2">ERROR: {claimError}</p>
+                      <button onClick={handleClaimClick} className="underline text-white/70 hover:text-white transition-colors">Try again</button>
                     </div>
                   )}
                 </>
@@ -194,6 +195,17 @@ export const Play: React.FC = () => {
                     <span className="text-success font-bold">{s.score}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Wallet Warning */}
+          {!isConnected && (
+            <div className="p-4 border border-warning/30 bg-warning/5 rounded-lg flex items-start gap-3">
+              <span className="text-warning text-lg">⚠</span>
+              <div>
+                <p className="tech-label text-warning font-bold text-xs mb-1">WALLET NOT CONNECTED</p>
+                <p className="font-mono text-[10px] text-white/50 leading-relaxed">Connect your wallet before playing to save scores on the Celo blockchain.</p>
               </div>
             </div>
           )}

@@ -9,13 +9,22 @@ import { Leaderboard } from './pages/Leaderboard';
 import { Profile } from './pages/Profile';
 import { WalletStatus } from './components/WalletStatus';
 import { TemporalBackground } from './components/TemporalBackground';
-
 const queryClient = new QueryClient();
+
+const LogoSVG = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_0_6px_rgba(0,240,255,0.4)]">
+    <rect x="2" y="2" width="16" height="16" rx="3" fill="#120b1a" stroke="var(--color-primary)" strokeWidth="1.5"/>
+    <rect x="6" y="5" width="8" height="6" rx="1" fill="var(--color-primary)" opacity="0.9"/>
+    <rect x="9" y="13" width="2" height="3" rx="0.5" fill="var(--color-primary)" opacity="0.6"/>
+    <circle cx="7" cy="15" r="1" fill="#FCFF52"/>
+    <circle cx="13" cy="15" r="1" fill="#F72585"/>
+  </svg>
+);
 
 const NavIcon: React.FC<{ icon: string, label: string, to: string, active: boolean }> = ({ icon, label, to, active }) => (
   <Link to={to} className={`flex flex-col items-center gap-1 flex-1 py-2.5 transition-all relative ${active ? 'text-primary scale-105' : 'text-white/40 hover:text-white/70'}`}>
     <span className="text-xl drop-shadow-[0_0_8px_rgba(0,240,255,0.3)]">{icon}</span>
-    <span className="font-arcade text-[6px] tracking-tighter uppercase">{label}</span>
+    <span className="font-mono text-[10px] font-bold tracking-wider uppercase">{label}</span>
     {active && (
       <span className="absolute bottom-0.5 w-6 h-0.5 bg-primary rounded-full shadow-[0_0_6px_var(--color-primary)]" />
     )}
@@ -43,9 +52,9 @@ function App() {
             
             {/* Tech Status Bar */}
             <header className="w-full px-6 py-4 flex items-center justify-between sticky top-0 z-50 glass-panel border-b border-white/5 backdrop-blur-xl">
-              <Link to="/" className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_var(--color-primary)]" />
-                <span className="font-arcade text-[10px] tracking-widest text-primary text-glow-primary">
+              <Link to="/" className="flex items-center gap-2.5">
+                <LogoSVG />
+                <span className="font-arcade text-xs tracking-widest text-primary text-glow-primary">
                   CELO ATARI
                 </span>
               </Link>

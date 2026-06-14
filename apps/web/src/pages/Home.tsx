@@ -69,14 +69,15 @@ const CabinetCard: React.FC<{
   status: 'LIVE' | 'BETA' | 'SOON', 
   color: string, 
   preview?: React.ReactNode,
-  logoUrl?: string
-}> = ({ id, title, status, color, preview, logoUrl }) => (
+  logoUrl?: string,
+  isActiveGame?: boolean
+}> = ({ id, title, status, color, preview, logoUrl, isActiveGame = true }) => (
 
   <div className="cabinet-container group">
     <div className="cabinet" style={{ borderColor: color }}>
       {/* Marquee */}
       <div className="cabinet-marquee flex justify-between items-center px-4">
-        <span className="font-arcade text-[8px] text-white/50">{id}</span>
+        <span className="font-mono text-[10px] font-bold tracking-wider text-white/50">{id}</span>
         <div className="flex items-center gap-2">
           <span className={`status-light ${
             status === 'LIVE' ? 'status-light-live' : status === 'BETA' ? 'status-light-beta' : 'status-light-soon'
@@ -91,7 +92,7 @@ const CabinetCard: React.FC<{
           {logoUrl ? (
             <img src={logoUrl} alt={title} className="max-w-full max-h-full object-contain" />
           ) : (
-            <div className="text-white/20 font-arcade text-[10px] text-center">
+            <div className="text-white/20 font-mono text-xs font-bold text-center">
               {preview || title.toUpperCase()}
             </div>
           )}
@@ -114,14 +115,21 @@ const CabinetCard: React.FC<{
 
       {/* Action Button */}
       <div className="mt-6 px-2 pb-2">
-        <Link 
-          to={`/play/${id.toLowerCase().replace(' ', '-')}`}
-          className={`arcade-btn w-full text-[10px] py-4 transform transition-all ${
-            status === 'SOON' ? 'arcade-btn-locked opacity-50 pointer-events-none' : 'group-hover:-translate-y-1'
-          }`}
-        >
-          {status === 'SOON' ? 'COMING SOON' : `PLAY ${title.toUpperCase()}`}
-        </Link>
+        {isActiveGame && status !== 'SOON' ? (
+          <Link 
+            to={`/play/${id.toLowerCase().replace(' ', '-')}`}
+            className="arcade-btn w-full text-xs py-4 transform transition-all group-hover:-translate-y-1"
+          >
+            {`PLAY ${title.toUpperCase()}`}
+          </Link>
+        ) : (
+          <button 
+            disabled
+            className="arcade-btn arcade-btn-locked w-full text-xs py-4 opacity-50 pointer-events-none"
+          >
+            {status === 'SOON' ? 'COMING SOON' : title.toUpperCase()}
+          </button>
+        )}
       </div>
     </div>
   </div>
@@ -134,17 +142,17 @@ export const Home: React.FC = () => {
       {/* Hero Title */}
       <div className="text-center mb-12">
         <h1 className="pixel-title text-4xl sm:text-6xl mb-6 tracking-widest">
-          CELO ATARI GAMES
+          STABLE SPRINT
         </h1>
         <p className="text-white/70 font-mono text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
-          4 retro mini-games for MiniPay.<br/>
-          Play fast rounds, save scores on Celo, and secure your spot on the blockchain.
+          Collect cUSD coins while dodging volatility traps.<br/>
+          Endless runner speed test — save scores on-chain and climb the leaderboard.
         </p>
       </div>
 
       {/* Primary Actions */}
       <div className="flex flex-col sm:flex-row gap-4 mb-20 w-full max-w-md">
-        <Link to="/play/gas-gobbler" className="arcade-btn flex-1 text-center py-4">
+        <Link to="/play/stable-sprint" className="arcade-btn flex-1 text-center py-4">
           PLAY NOW
         </Link>
         <Link to="/leaderboard" className="arcade-btn-secondary flex-1 text-center py-4">
@@ -155,12 +163,21 @@ export const Home: React.FC = () => {
       {/* Games Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full mb-24">
         <CabinetCard 
+          id="STABLE SPRINT" 
+          title="Stable Sprint" 
+          status="LIVE" 
+          color="#56DF7C"
+          preview={<StableSprintPreview />}
+          isActiveGame={true}
+        />
+        <CabinetCard 
           id="GAS GOBBLER" 
           title="Gas Gobbler" 
           status="LIVE" 
           color="#FCFF52"
           logoUrl="/gas_gobbler_logo.png"
           preview={<GasGobblerPreview />}
+          isActiveGame={false}
         />
         <CabinetCard 
           id="MENTO INVADERS" 
@@ -168,6 +185,7 @@ export const Home: React.FC = () => {
           status="BETA" 
           color="#00f0ff"
           preview={<MentoInvadersPreview />}
+          isActiveGame={false}
         />
         <CabinetCard 
           id="BLOCK BREAKER" 
@@ -175,20 +193,14 @@ export const Home: React.FC = () => {
           status="SOON" 
           color="#F72585"
           preview={<BlockBreakerPreview />}
-        />
-        <CabinetCard 
-          id="STABLE SPRINT" 
-          title="Stable Sprint" 
-          status="SOON" 
-          color="#56DF7C"
-          preview={<StableSprintPreview />}
+          isActiveGame={false}
         />
       </div>
 
       {/* Proof of Ship / Infrastructure Section */}
       <div className="w-full">
         <div className="inline-block glass-panel px-4 py-1.5 mb-4 shadow-[0_0_12px_rgba(0,240,255,0.1)]">
-          <span className="font-arcade text-[8px] text-primary tracking-widest text-glow-primary">PROOF OF SHIP</span>
+          <span className="font-mono text-xs font-bold text-primary tracking-widest text-glow-primary">PROOF OF SHIP</span>
         </div>
         
         <div className="glass-panel p-8 border border-white/10 shadow-lg relative overflow-hidden">
@@ -206,7 +218,7 @@ export const Home: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
                   <span className="tech-label text-white/60">Contracts</span>
-                  <a href="https://talent.app/" target="_blank" rel="noopener noreferrer" className="tech-label font-bold text-white/90 underline hover:text-primary transition-colors">Talent App</a>
+                  <a href="https://celoscan.io/address/0xc4c59f5D3a9dedE1203fFfe4e31841d88F61BDB5" target="_blank" rel="noopener noreferrer" className="tech-label font-bold text-white/90 underline hover:text-primary transition-colors">Celoscan</a>
                 </div>
                 <div className="flex justify-between items-center border-b border-white/5 pb-2">
                   <span className="tech-label text-white/60">Network</span>

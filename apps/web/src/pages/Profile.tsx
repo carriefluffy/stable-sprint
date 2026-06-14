@@ -53,7 +53,7 @@ export const Profile: React.FC = () => {
                   <div className="tech-label text-[9px] text-success text-glow-success mt-0.5">CONNECTED VIA {isMiniPayWallet ? 'MINIPAY' : 'INJECTED'}</div>
                 </div>
               </div>
-              <div className="text-[8px] font-arcade px-2.5 py-1 bg-primary/20 text-primary rounded shadow-[0_0_8px_rgba(0,240,255,0.15)] text-glow-primary border border-primary/20">
+              <div className="text-xs font-mono font-bold px-2.5 py-1 bg-primary/20 text-primary rounded shadow-[0_0_8px_rgba(0,240,255,0.15)] text-glow-primary border border-primary/20">
                 VERIFIED
               </div>
             </div>
