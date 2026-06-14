@@ -1,4 +1,4 @@
-import type { FrameInput } from '@celo-arcade/game-engine';
+import type { FrameInput } from '@celo-atari-games/stable-sprint-engine';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 

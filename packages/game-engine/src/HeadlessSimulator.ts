@@ -16,8 +16,8 @@ export class HeadlessSimulator {
     while (!isOver && currentFrame < maxFrames) {
       currentFrame++;
 
-      // Apply inputs for this frame
-      while (inputIndex < inputs.length && inputs[inputIndex].f === currentFrame) {
+      // Apply inputs for this frame (recorded after frame currentFrame - 1 finished)
+      while (inputIndex < inputs.length && inputs[inputIndex].f === currentFrame - 1) {
         player.setDirection(inputs[inputIndex].d);
         inputIndex++;
       }

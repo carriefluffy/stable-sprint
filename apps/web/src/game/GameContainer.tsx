@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { GameLoop } from './GameLoop';
-import { Player, Direction, Score, ReplayRecorder } from '@celo-arcade/game-engine';
-import type { FrameInput } from '@celo-arcade/game-engine';
+import { Player, Direction, Score, ReplayRecorder } from '@celo-atari-games/stable-sprint-engine';
+import type { FrameInput } from '@celo-atari-games/stable-sprint-engine';
 import { CanvasRenderer } from './CanvasRenderer';
 
 interface GameContainerProps {

@@ -3,7 +3,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { privateKeyToAccount } from 'viem/accounts';
 import { z } from 'zod';
-import { HeadlessSimulator } from '@celo-arcade/game-engine';
+import { HeadlessSimulator } from '@celo-atari-games/stable-sprint-engine';
 
 export interface Env {
   SESSIONS: KVNamespace;

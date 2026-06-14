@@ -15,7 +15,8 @@ export class ReplayRecorder {
   }
 
   public recordInput(dir: Direction) {
-    if (dir !== this.lastDirection) {
+    const lastInput = this.inputs[this.inputs.length - 1];
+    if (!lastInput || lastInput.f !== this.currentFrame || lastInput.d !== dir) {
       this.inputs.push({ f: this.currentFrame, d: dir });
       this.lastDirection = dir;
     }

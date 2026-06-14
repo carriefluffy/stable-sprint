@@ -1,5 +1,5 @@
-import { Player } from '@celo-arcade/game-engine';
-import { Score } from '@celo-arcade/game-engine';
+import { Player } from '@celo-atari-games/stable-sprint-engine';
+import { Score } from '@celo-atari-games/stable-sprint-engine';
 
 export class CanvasRenderer {
   private ctx: CanvasRenderingContext2D;

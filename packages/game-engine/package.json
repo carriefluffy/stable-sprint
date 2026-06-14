@@ -1,7 +1,12 @@
 {
-  "name": "@celo-arcade/game-engine",
-  "version": "1.0.0",
+  "name": "@celo-atari-games/stable-sprint-engine",
+  "version": "1.0.2",
   "description": "Shared game engine logic for frontend and backend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carriefluffy/stable-sprint.git",
+    "directory": "packages/game-engine"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

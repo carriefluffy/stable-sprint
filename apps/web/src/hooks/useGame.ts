@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { api } from '../utils/api';
 import { useWallet } from './useWallet';
 import { useWriteContract, usePublicClient } from 'wagmi';
-import type { FrameInput } from '@celo-arcade/game-engine';
+import type { FrameInput } from '@celo-atari-games/stable-sprint-engine';
 
 const ScoreRegistryABI = [
   {
