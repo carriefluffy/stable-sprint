@@ -77,7 +77,7 @@ export const Play: React.FC = () => {
     startGame,
     onGameOver,
     claimScore
-  } = useGame(gameId || 'gas-gobbler');
+  } = useGame();
 
   if (!gameId || !GAME_INFO[gameId]) {
     return <Navigate to="/play/gas-gobbler" replace />;
