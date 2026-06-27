@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Improved loading state indicators
-- Added input validation for amounts
+- Optimized RPC batch requests
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Corrected gas estimation for Celo L2
+- Fixed decimal formatting for small amounts
