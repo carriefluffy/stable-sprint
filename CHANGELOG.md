@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Optimized RPC batch requests
-- Added retry logic for failed transactions
+- Updated dependencies to latest stable
+- Cleaned up unused imports
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
