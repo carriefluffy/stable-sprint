@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Updated dependencies to latest stable
+- Improved loading state indicators
 - Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed edge case in balance display
+- Corrected gas estimation for Celo L2
