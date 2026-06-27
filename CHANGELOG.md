@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Updated dependencies to latest stable
+- Enhanced mobile responsiveness
 - Cleaned up unused imports
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Fixed edge case in balance display
