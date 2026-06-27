@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Improved loading state indicators
-- Reduced bundle size by tree-shaking
+- Improved error handling in contract interactions
+- Added retry logic for failed transactions
 
 ### Fixed
 - Corrected gas estimation for Celo L2
