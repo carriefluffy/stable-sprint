@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Refactored wallet connection flow
-- Cleaned up unused imports
+- Improved error handling in contract interactions
+- Added retry logic for failed transactions
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed decimal formatting for small amounts
