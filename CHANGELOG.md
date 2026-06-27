@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Enhanced mobile responsiveness
-- Cleaned up unused imports
+- Refactored wallet connection flow
+- Added input validation for amounts
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
