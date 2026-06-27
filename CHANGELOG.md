@@ -4,7 +4,7 @@
 
 ### Changed
 - Improved loading state indicators
-- Added input validation for amounts
+- Reduced bundle size by tree-shaking
 
 ### Fixed
 - Fixed decimal formatting for small amounts
