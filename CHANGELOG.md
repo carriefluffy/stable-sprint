@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Refactored wallet connection flow
-- Added input validation for amounts
+- Updated dependencies to latest stable
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Fixed edge case in balance display
