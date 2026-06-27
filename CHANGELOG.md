@@ -3,7 +3,7 @@
 ## [Unreleased] - 2026-06-27
 
 ### Changed
-- Improved error handling in contract interactions
+- Refactored wallet connection flow
 - Added retry logic for failed transactions
 
 ### Fixed
