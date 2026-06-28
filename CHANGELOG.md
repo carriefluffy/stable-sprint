@@ -4,7 +4,7 @@
 
 ### Changed
 - Optimized RPC batch requests
-- Cleaned up unused imports
+- Added retry logic for failed transactions
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Fixed edge case in balance display
