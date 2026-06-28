@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Optimized RPC batch requests
-- Cleaned up unused imports
+- Updated dependencies to latest stable
+- Added retry logic for failed transactions
 
 ### Fixed
-- Corrected gas estimation for Celo L2
+- Resolved race condition in wallet sync
