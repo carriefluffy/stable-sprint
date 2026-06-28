@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Enhanced mobile responsiveness
-- Reduced bundle size by tree-shaking
+- Improved error handling in contract interactions
+- Cleaned up unused imports
 
 ### Fixed
-- Corrected gas estimation for Celo L2
+- Resolved race condition in wallet sync
