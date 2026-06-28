@@ -3,7 +3,7 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Enhanced mobile responsiveness
+- Improved loading state indicators
 - Added retry logic for failed transactions
 
 ### Fixed
