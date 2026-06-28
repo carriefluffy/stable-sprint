@@ -4,7 +4,7 @@
 
 ### Changed
 - Refactored wallet connection flow
-- Cleaned up unused imports
+- Added retry logic for failed transactions
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed decimal formatting for small amounts
