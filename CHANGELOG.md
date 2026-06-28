@@ -1,10 +1,10 @@
 # Changelog
 
-## [Unreleased] - 2026-06-27
+## [Unreleased] - 2026-06-28
 
 ### Changed
 - Optimized RPC batch requests
-- Reduced bundle size by tree-shaking
+- Cleaned up unused imports
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Corrected gas estimation for Celo L2
