@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Improved loading state indicators
-- Reduced bundle size by tree-shaking
+- Refactored wallet connection flow
+- Added retry logic for failed transactions
 
 ### Fixed
 - Corrected gas estimation for Celo L2
