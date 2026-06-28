@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Improved loading state indicators
+- Refactored wallet connection flow
 - Added input validation for amounts
 
 ### Fixed
-- Corrected gas estimation for Celo L2
+- Fixed edge case in balance display
