@@ -3,7 +3,7 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Improved loading state indicators
+- Refactored wallet connection flow
 - Added retry logic for failed transactions
 
 ### Fixed
