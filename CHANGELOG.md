@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Improved error handling in contract interactions
-- Added input validation for amounts
+- Refactored wallet connection flow
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed edge case in balance display
+- Corrected gas estimation for Celo L2
