@@ -4,7 +4,7 @@
 
 ### Changed
 - Improved error handling in contract interactions
-- Cleaned up unused imports
+- Added input validation for amounts
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed edge case in balance display
