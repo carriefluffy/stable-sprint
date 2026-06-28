@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Improved loading state indicators
+- Updated dependencies to latest stable
 - Reduced bundle size by tree-shaking
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Corrected gas estimation for Celo L2
