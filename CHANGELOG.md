@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-28
 
 ### Changed
-- Refactored wallet connection flow
+- Updated dependencies to latest stable
 - Added retry logic for failed transactions
 
 ### Fixed
-- Fixed edge case in balance display
+- Resolved race condition in wallet sync
