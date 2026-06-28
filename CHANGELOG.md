@@ -4,7 +4,7 @@
 
 ### Changed
 - Optimized RPC batch requests
-- Added input validation for amounts
+- Cleaned up unused imports
 
 ### Fixed
 - Fixed decimal formatting for small amounts
