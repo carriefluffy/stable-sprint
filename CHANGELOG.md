@@ -4,7 +4,7 @@
 
 ### Changed
 - Optimized RPC batch requests
-- Added retry logic for failed transactions
+- Cleaned up unused imports
 
 ### Fixed
-- Fixed edge case in balance display
+- Corrected gas estimation for Celo L2
