@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2026-06-28
+## [Unreleased] - 2026-06-29
 
 ### Changed
-- Improved error handling in contract interactions
+- Optimized RPC batch requests
 - Added input validation for amounts
 
 ### Fixed
