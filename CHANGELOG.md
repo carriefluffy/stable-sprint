@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Enhanced mobile responsiveness
-- Reduced bundle size by tree-shaking
+- Optimized RPC batch requests
+- Added retry logic for failed transactions
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Fixed edge case in balance display
