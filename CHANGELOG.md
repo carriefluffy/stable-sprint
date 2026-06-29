@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Optimized RPC batch requests
+- Improved loading state indicators
 - Added input validation for amounts
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
