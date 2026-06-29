@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Enhanced mobile responsiveness
-- Reduced bundle size by tree-shaking
+- Improved error handling in contract interactions
+- Added retry logic for failed transactions
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed decimal formatting for small amounts
