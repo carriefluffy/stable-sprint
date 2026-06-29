@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Updated dependencies to latest stable
-- Cleaned up unused imports
+- Improved error handling in contract interactions
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Corrected gas estimation for Celo L2
