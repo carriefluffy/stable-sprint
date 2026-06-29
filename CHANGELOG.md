@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Refactored wallet connection flow
-- Added input validation for amounts
+- Improved error handling in contract interactions
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed edge case in balance display
