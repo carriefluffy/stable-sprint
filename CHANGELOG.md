@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Improved error handling in contract interactions
-- Reduced bundle size by tree-shaking
+- Enhanced mobile responsiveness
+- Added input validation for amounts
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Corrected gas estimation for Celo L2
