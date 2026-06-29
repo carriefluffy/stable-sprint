@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Optimized RPC batch requests
-- Added retry logic for failed transactions
+- Refactored wallet connection flow
+- Added input validation for amounts
 
 ### Fixed
-- Resolved race condition in wallet sync
+- Fixed edge case in balance display
