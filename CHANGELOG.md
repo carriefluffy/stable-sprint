@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Updated dependencies to latest stable
-- Cleaned up unused imports
+- Optimized RPC batch requests
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
