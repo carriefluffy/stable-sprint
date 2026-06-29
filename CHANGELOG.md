@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Improved error handling in contract interactions
-- Added retry logic for failed transactions
+- Refactored wallet connection flow
+- Cleaned up unused imports
 
 ### Fixed
-- Fixed decimal formatting for small amounts
+- Corrected gas estimation for Celo L2
