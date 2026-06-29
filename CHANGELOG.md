@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Updated dependencies to latest stable
+- Enhanced mobile responsiveness
 - Added input validation for amounts
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
