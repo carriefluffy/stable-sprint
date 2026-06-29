@@ -3,7 +3,7 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Enhanced mobile responsiveness
+- Updated dependencies to latest stable
 - Cleaned up unused imports
 
 ### Fixed
