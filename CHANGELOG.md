@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-29
 
 ### Changed
-- Improved loading state indicators
-- Added input validation for amounts
+- Improved error handling in contract interactions
+- Reduced bundle size by tree-shaking
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
