@@ -8,4 +8,4 @@ Updated: 2026-06-29
 - next: 15.0.0
 
 ## Notes
-- Next.js App Router for better streaming SSR
+- Pinned ethers for Celo fee currency compatibility
