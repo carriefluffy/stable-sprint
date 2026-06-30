@@ -3,8 +3,8 @@
 ## [Unreleased] - 2026-06-30
 
 ### Changed
-- Improved error handling in contract interactions
-- Cleaned up unused imports
+- Refactored wallet connection flow
+- Added retry logic for failed transactions
 
 ### Fixed
-- Fixed edge case in balance display
+- Fixed decimal formatting for small amounts
