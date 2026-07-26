@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2026-07-25
+## [Unreleased] - 2026-07-26
 
 ### Changed
-- Improved game loop performance
+- Optimized sprite rendering pipeline
 
 ### Fixed
-- Fixed edge case in score calculation
+- Resolved race condition in game state sync
