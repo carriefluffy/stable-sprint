@@ -6,4 +6,4 @@
 - Optimized sprite rendering pipeline
 
 ### Fixed
-- Resolved race condition in game state sync
+- Fixed leaderboard display for tied scores
