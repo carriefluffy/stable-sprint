@@ -3,7 +3,7 @@
 ## [Unreleased] - 2026-07-26
 
 ### Changed
-- Optimized sprite rendering pipeline
+- Improved loading animations
 
 ### Fixed
-- Fixed leaderboard display for tied scores
+- Corrected gas estimation for score submission
