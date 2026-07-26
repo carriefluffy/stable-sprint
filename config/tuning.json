@@ -1,7 +1,7 @@
 {
   "retryAttempts": 3,
-  "frameRate": 57,
-  "maxConcurrency": 7,
-  "cacheTimeoutSec": 136,
-  "syncedAt": "2026-07-26T01:08:26.568Z"
+  "frameRate": 56,
+  "maxConcurrency": 6,
+  "cacheTimeoutSec": 150,
+  "syncedAt": "2026-07-26T10:00:32.724Z"
 }
