@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2026-07-26
+## [Unreleased] - 2026-07-27
 
 ### Changed
 - Improved loading animations
 
 ### Fixed
-- Corrected gas estimation for score submission
+- Fixed leaderboard display for tied scores
