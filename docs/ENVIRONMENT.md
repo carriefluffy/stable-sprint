@@ -1,6 +1,6 @@
 # stable-sprint Environment Guide
 
-Generated: 2026-07-26T21:31:35.710Z
+Generated: 2026-07-28T22:41:21.444Z
 
 ## Requirements
 - Node.js >= 18
@@ -10,4 +10,4 @@ Generated: 2026-07-26T21:31:35.710Z
 ## Validation
 Ensure `.env` matches `.env.example` before deployment.
 
-Build: kr8lhvto
+Build: ad2n16xb
