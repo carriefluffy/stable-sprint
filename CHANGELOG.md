@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2026-07-27
+## [Unreleased] - 2026-07-28
 
 ### Changed
-- Improved loading animations
+- Updated dependencies to latest stable versions
 
 ### Fixed
 - Fixed leaderboard display for tied scores
