@@ -1,131 +1,248 @@
 import React, { useState } from 'react';
 import { useWallet } from '../hooks/useWallet';
 import { useProfile } from '../hooks/useProfile';
+import { Panel, StatCard } from '../components/Card';
+import { Button } from '../components/Button';
+import { Badge } from '../components/Badge';
+import { StatusLight } from '../components/StatusLight';
+
+interface ProfileForm {
+  username: string;
+  twitter: string;
+  farcaster: string;
+}
+
+interface FormErrors {
+  username?: string;
+  twitter?: string;
+  farcaster?: string;
+}
+
+const validateTwitter = (v: string) =>
+  v && !/^[a-zA-Z0-9_]{1,15}$/.test(v.trim()) ? 'Use 1–15 letters, numbers, or underscores.' : undefined;
+const validateFarcaster = (v: string) =>
+  v && !/^[a-zA-Z0-9_.-]{1,20}$/.test(v.trim()) ? 'Use 1–20 letters, numbers, dots, dashes, or underscores.' : undefined;
+
+interface FieldProps {
+  name: keyof ProfileForm;
+  label: string;
+  value: string;
+  helper?: string;
+  error?: string;
+  placeholder?: string;
+  prefix?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Field: React.FC<FieldProps> = ({
+  name,
+  label,
+  value,
+  helper,
+  error,
+  placeholder,
+  prefix,
+  onChange,
+}) => (
+  <div>
+    <label htmlFor={name} className="tech-label text-white/65 block mb-2" style={{ fontSize: '13px' }}>
+      {label}
+    </label>
+    <div className="relative">
+      {prefix && (
+        <span aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-arcade" style={{ fontSize: '17px' }}>
+          {prefix}
+        </span>
+      )}
+      <input
+        id={name}
+        type="text"
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className="sega-input"
+        style={prefix ? { paddingLeft: '2.25rem' } : undefined}
+      />
+    </div>
+    {helper && !error && (
+      <p className="tech-label text-white/45 mt-1.5" style={{ fontSize: '13px' }}>{helper}</p>
+    )}
+    {error && (
+      <p id={`${name}-error`} className="tech-label text-danger mt-1.5" style={{ fontSize: '13px' }} role="alert">
+        ✕ {error}
+      </p>
+    )}
+  </div>
+);
 
 export const Profile: React.FC = () => {
   const { address, isConnected, connect, isMiniPayWallet } = useWallet();
   const profile = useProfile();
-  
-  const [formData, setFormData] = useState({
-    username: profile.username,
-    twitter: profile.twitter,
-    farcaster: profile.farcaster,
-  });
 
-  const [isSaved, setIsSaved] = useState(false);
+  const [formData, setFormData] = useState<ProfileForm>({
+    username: profile.username ?? '',
+    twitter: profile.twitter ?? '',
+    farcaster: profile.farcaster ?? '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    setIsSaved(false);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setStatus('idle');
+    if (name === 'twitter') setErrors((p) => ({ ...p, twitter: validateTwitter(value) }));
+    if (name === 'farcaster') setErrors((p) => ({ ...p, farcaster: validateFarcaster(value) }));
   };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    profile.updateProfile(formData);
-    setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 3000);
+    if (!isConnected) {
+      connect();
+      return;
+    }
+    const twitterErr = validateTwitter(formData.twitter);
+    const farcasterErr = validateFarcaster(formData.farcaster);
+    setErrors({ twitter: twitterErr, farcaster: farcasterErr });
+    if (twitterErr || farcasterErr) {
+      setStatus('error');
+      return;
+    }
+    setStatus('saving');
+    try {
+      profile.updateProfile(formData);
+      setStatus('saved');
+      setTimeout(() => setStatus('idle'), 2400);
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
-    <div className="flex flex-col items-center py-12 px-4 max-w-xl mx-auto w-full animate-in fade-in duration-500">
-      <div className="text-center mb-10">
-        <h1 className="pixel-title text-3xl sm:text-4xl mb-4 text-glow-primary">PLAYER PROFILE</h1>
-        <p className="text-white/60 font-mono text-xs sm:text-sm max-w-md mx-auto">
+    <div className="flex flex-col items-center py-10 px-4 max-w-xl mx-auto w-full">
+      <header className="text-center mb-8 w-full">
+        <div className="machine-label machine-label--yellow mb-3" style={{ display: 'inline-block' }}>PLAYER&nbsp;CARD</div>
+        <h1 className="pixel-title mb-3" style={{ fontSize: '35px' }}>Player&nbsp;profile</h1>
+        <p className="text-white/65 mx-auto" style={{ fontSize: '17px', lineHeight: 1.35, maxWidth: '44ch' }}>
           Manage your credentials, link your web3 socials, and verify your on-chain standing.
         </p>
-      </div>
+      </header>
 
-      <div className="glass-panel p-6 sm:p-8 w-full border-white/10 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-        
-        {/* Wallet Section */}
-        <div className="mb-10">
-          <h2 className="tech-label opacity-40 mb-4 block">WALLET CONNECTION</h2>
+      {/* Player card — summary header */}
+      <Panel variant="featured" className="w-full mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <StatCard label="Alias" value={formData.username || '—'} />
+          <StatCard
+            label="Wallet state"
+            value={isConnected ? <Badge status="verified" label="Connected" /> : <Badge status="soon" label="Offline" />}
+          />
+          <StatCard label="Top score" value="—" hint="Submit a run" />
+          <StatCard label="Best rank" value="—" hint="Unranked" />
+        </div>
+      </Panel>
+
+      {/* Wallet connection panel */}
+      <section className="w-full mb-6" aria-label="Wallet connection">
+        <h2 className="tech-label text-white/45 mb-3" style={{ fontSize: '13px' }}>Wallet</h2>
+        <Panel variant={isConnected ? 'default' : 'locked'}>
           {isConnected && address ? (
-            <div className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl shadow-inner">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-lg bg-surface-bright flex items-center justify-center text-xl border border-white/10 shadow-sm">
-                  {isMiniPayWallet ? '📱' : '🦊'}
-                </div>
+                <StatusLight kind="live" label={isMiniPayWallet ? 'Minipay' : 'Injected'} hideLabel />
                 <div>
-                  <div className="font-mono text-sm text-white/90 font-bold">{`${address.slice(0, 6)}...${address.slice(-4)}`}</div>
-                  <div className="tech-label text-[9px] text-success text-glow-success mt-0.5">CONNECTED VIA {isMiniPayWallet ? 'MINIPAY' : 'INJECTED'}</div>
+                  <div className="tech-value text-cream font-bold" style={{ fontSize: '15px' }}>
+                    {address.slice(0, 6)}…{address.slice(-4)}
+                  </div>
+                  <div className="tech-label text-success" style={{ fontSize: '13px' }}>
+                    Connected via {isMiniPayWallet ? 'MiniPay' : 'injected wallet'}
+                  </div>
                 </div>
               </div>
-              <div className="text-xs font-mono font-bold px-2.5 py-1 bg-primary/20 text-primary rounded shadow-[0_0_8px_rgba(0,240,255,0.15)] text-glow-primary border border-primary/20">
-                VERIFIED
-              </div>
+              <Badge status="verified" label="Verified" />
             </div>
           ) : (
-            <div className="text-center p-8 border-dashed border-2 border-white/10 rounded-xl">
-              <p className="tech-label text-white/40 mb-4 normal-case font-medium">No wallet linked to this browser session</p>
-              <button onClick={connect} className="arcade-btn py-3 px-6 text-xs">
-                CONNECT WALLET
-              </button>
+            <div className="flex flex-col items-center text-center gap-3">
+              <StatusLight kind="soon" label="No wallet connected" />
+              <p className="text-white/70" style={{ fontSize: '15px', lineHeight: 1.3, maxWidth: '40ch' }}>
+                Connect your wallet to save scores on-chain and register your arcade player.
+              </p>
+              <Button onClick={connect}>{isMiniPayWallet ? 'Reconnect' : 'Connect wallet'}</Button>
             </div>
           )}
-        </div>
+        </Panel>
+      </section>
 
-        {/* Profile Form */}
-        <div>
-          <h2 className="tech-label opacity-40 mb-4 block">SOCIAL REGISTRY</h2>
-          <form onSubmit={handleSave} className="space-y-6">
-            <div>
-              <label className="tech-label text-[10px] opacity-70 mb-2 block">Arcade Alias</label>
-              <input 
-                type="text" 
+      {/* Social registry form */}
+      <section className="w-full">
+        <h2 className="tech-label text-white/45 mb-3" style={{ fontSize: '13px' }}>Social registry</h2>
+        <form onSubmit={handleSave} className="flex flex-col gap-5">
+          <Panel>
+            <div className="flex flex-col gap-5">
+              <Field
                 name="username"
+                label="Arcade alias"
                 value={formData.username}
-                onChange={handleChange}
                 placeholder="e.g. Satoshi"
-                className="w-full bg-black/50 border border-white/10 rounded-xl p-4 font-mono text-sm text-white focus:outline-none focus-neon transition-colors"
+                helper="Shown beside your scores on the leaderboard."
+                error={errors.username}
+                onChange={handleChange}
+              />
+              <Field
+                name="twitter"
+                label="X (Twitter)"
+                value={formData.twitter}
+                placeholder="username"
+                prefix="@"
+                helper="Link your X account so the leaderboard can verify you off-chain."
+                error={errors.twitter}
+                onChange={handleChange}
+              />
+              <Field
+                name="farcaster"
+                label="Farcaster"
+                value={formData.farcaster}
+                placeholder="username"
+                prefix="@"
+                helper="Link your Farcaster identity for cross-client socials."
+                error={errors.farcaster}
+                onChange={handleChange}
               />
             </div>
-            
-            <div>
-              <label className="tech-label text-[10px] opacity-70 mb-2 block">X (Twitter) Profile</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-mono">@</span>
-                <input 
-                  type="text" 
-                  name="twitter"
-                  value={formData.twitter}
-                  onChange={handleChange}
-                  placeholder="username"
-                  className="w-full bg-black/50 border border-white/10 rounded-xl p-4 pl-9 font-mono text-sm text-white focus:outline-none focus-neon transition-colors"
-                />
-              </div>
-            </div>
+          </Panel>
 
-            <div>
-              <label className="tech-label text-[10px] opacity-70 mb-2 block">Farcaster Identity</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 font-mono">@</span>
-                <input 
-                  type="text" 
-                  name="farcaster"
-                  value={formData.farcaster}
-                  onChange={handleChange}
-                  placeholder="username"
-                  className="w-full bg-black/50 border border-white/10 rounded-xl p-4 pl-9 font-mono text-sm text-white focus:outline-none focus-neon transition-colors"
-                />
+          {/* Save-state alerts */}
+          {status === 'error' && (
+            <Panel variant="locked" role="alert" className="flex items-start gap-3">
+              <span aria-hidden="true" className="text-danger font-bold" style={{ fontSize: '17px' }}>✕</span>
+              <div>
+                <p className="tech-label font-bold text-danger mb-1" style={{ fontSize: '13px' }}>Profile not saved</p>
+                <p className="text-white/70" style={{ fontSize: '15px', lineHeight: 1.3 }}>Fix the form errors above and try again.</p>
               </div>
-            </div>
+            </Panel>
+          )}
+          {status === 'saved' && (
+            <Panel role="status" className="flex items-start gap-3">
+              <span aria-hidden="true" className="text-success font-bold" style={{ fontSize: '17px' }}>✓</span>
+              <div>
+                <p className="tech-label font-bold text-success mb-1" style={{ fontSize: '13px' }}>Registry secured</p>
+                <p className="text-white/70" style={{ fontSize: '15px', lineHeight: 1.3 }}>Your arcade profile was saved.</p>
+              </div>
+            </Panel>
+          )}
 
-            <button 
-              type="submit" 
-              className={`w-full py-4 text-xs font-arcade transition-all rounded-xl cursor-pointer ${
-                isSaved 
-                  ? 'bg-success text-black shadow-[0_0_15px_var(--color-success)]' 
-                  : 'bg-primary text-black hover:bg-primary/90 shadow-[0_0_15px_rgba(0,240,255,0.25)] hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]'
-              }`}
-            >
-              {isSaved ? 'REGISTRY SECURED!' : 'SAVE PROFILE'}
-            </button>
-          </form>
-        </div>
-      </div>
+          <Button
+            type="submit"
+            loading={status === 'saving'}
+            fullWidth
+            variant={status === 'saved' ? 'secondary' : 'primary'}
+          >
+            {status === 'saving' ? '' : status === 'saved' ? '✓ Registry secured' : !isConnected ? 'Connect & save profile' : 'Save profile'}
+          </Button>
+        </form>
+      </section>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+import type { SVGProps } from "react";
+
+export function ArcticonsBlockBuster(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><rect width="29.514" height="29.514" x="9.38" y="9.243" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" rx="4.216" ry="4.216"/><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m37.662 10.477l-27.05 27.048M4.5 24.142h39"/></svg>
+  );
+}
+
+export default ArcticonsBlockBuster;

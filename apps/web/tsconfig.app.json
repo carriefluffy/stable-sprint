@@ -15,6 +15,14 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Path alias — mirrors vite.config.ts resolve.alias so the Arcticons
+       registry imports (@/components/icons/...) resolve at build time.
+       Note: TypeScript 6 deprecates baseUrl; paths resolve fine relative to
+       the tsconfig file's own directory without it (TS ≥4.1 behavior). */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
