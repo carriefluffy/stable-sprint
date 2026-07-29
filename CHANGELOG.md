@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased] - 2026-07-28
+## [Unreleased] - 2026-07-29
 
 ### Changed
-- Updated dependencies to latest stable versions
+- Enhanced mobile touch controls
 
 ### Fixed
-- Fixed leaderboard display for tied scores
+- Corrected gas estimation for score submission
